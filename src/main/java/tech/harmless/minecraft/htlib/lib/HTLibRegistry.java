@@ -1,10 +1,10 @@
 package tech.harmless.minecraft.htlib.lib;
 
 import org.jetbrains.annotations.NotNull;
-import tech.harmless.minecraft.htlib.lib.block.HTBlock;
-import tech.harmless.minecraft.htlib.lib.item.HTItem;
 
 //TODO ItemGroup
+// Replaced by just using HTItem and HTBlock.
+@Deprecated
 public class HTLibRegistry {
 
     private HTLibHandle handle;
@@ -13,11 +13,11 @@ public class HTLibRegistry {
         this.handle = handle;
     }
 
-    public void registerItem(@NotNull HTItem item) {
-
+    public void registerItems(@NotNull String namespace) {
+        //TODO
     }
 
-    public void registerBlock(@NotNull HTBlock block) {
-
+    public void registerBlocks(@NotNull String namespace) {
+        //TODO
     }
 }

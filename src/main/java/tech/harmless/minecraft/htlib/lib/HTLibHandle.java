@@ -1,5 +1,6 @@
 package tech.harmless.minecraft.htlib.lib;
 
+@Deprecated
 public class HTLibHandle {
 
     public final int htId;
