@@ -5,6 +5,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.atteo.classindex.ClassIndex;
+import tech.harmless.minecraft.htlib.lib.annotations.HTMod;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,9 +37,17 @@ public class HTLib implements ModInitializer {
         LOG.info("Initializing HTLib...");
         //TODO Get HTLib mods and other stuff.
 
-        Collection<ModContainer> mods = FabricLoader.getInstance().getAllMods();
+        /*Collection<ModContainer> mods = FabricLoader.getInstance().getAllMods();
         for(ModContainer mod : mods)
-            LOG.info(mod.getMetadata());
+            LOG.info(mod.getMetadata());*/
+
+        Iterable<Class<?>> modClasses = ClassIndex.getAnnotated(HTMod.class);
+        for(Class<?> c : modClasses) {
+            LOG.info("HTLib found HTLib mod class " + c.getName());
+
+            HTMod mod = c.getAnnotation(HTMod.class);
+            LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", and version " + mod.version() + ".");
+        }
 
         LOG.info("Done initializing HTLib.");
     }
