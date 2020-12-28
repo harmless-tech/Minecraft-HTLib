@@ -1,4 +1,4 @@
-package tech.harmless.minecraft.htlib.lib.item;
+package tech.harmless.minecraft.htlib.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;

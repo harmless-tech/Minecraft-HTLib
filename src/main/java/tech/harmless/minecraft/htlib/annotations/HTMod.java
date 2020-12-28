@@ -1,4 +1,4 @@
-package tech.harmless.minecraft.htlib.lib.annotations;
+package tech.harmless.minecraft.htlib.annotations;
 
 import org.atteo.classindex.IndexAnnotated;
 

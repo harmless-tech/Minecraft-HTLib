@@ -1,4 +1,4 @@
-package tech.harmless.minecraft.htlib.lib.item;
+package tech.harmless.minecraft.htlib.item;
 
 import org.atteo.classindex.IndexSubclasses;
 

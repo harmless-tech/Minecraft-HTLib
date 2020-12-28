@@ -11,9 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atteo.classindex.ClassFilter;
 import org.atteo.classindex.ClassIndex;
-import tech.harmless.minecraft.htlib.lib.annotations.HTMod;
-import tech.harmless.minecraft.htlib.lib.annotations.NoRegister;
-import tech.harmless.minecraft.htlib.lib.item.HTItem;
+import tech.harmless.minecraft.htlib.annotations.HTMod;
+import tech.harmless.minecraft.htlib.annotations.NoRegister;
+import tech.harmless.minecraft.htlib.item.HTItem;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -70,7 +70,7 @@ public class HTLib implements ModInitializer {
 
             if(!htMods.contains(mod.id())) {
                 htMods.add(mod.id());
-                LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", and version "
+                LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", version "
                         + mod.version() + ".");
 
                 String modPackage = mod.topPackage();
@@ -81,7 +81,7 @@ public class HTLib implements ModInitializer {
 
                 final String finalModPackage = modPackage;
                 ClassFilter.FilterBuilder filter =
-                        ClassFilter.any((klass) -> klass.getPackage().getName().contains(finalModPackage));
+                        ClassFilter.any((klass) -> klass.getPackage().getName().startsWith(finalModPackage));
 
                 // Items
                 //TODO Get ItemGroups
