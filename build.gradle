@@ -50,6 +50,11 @@ java {
 	withSourcesJar()
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	archiveClassifier = "javadoc"
+	from javadoc.destinationDir
+}
+
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
@@ -69,6 +74,9 @@ publishing {
 			}
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
+			}
+			artifact(javadocJar) {
+				builtBy javadocJar
 			}
 		}
 	}
