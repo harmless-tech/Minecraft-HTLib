@@ -1,6 +1,11 @@
 package tech.harmless.minecraft.htlib;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atteo.classindex.ClassIndex;
@@ -15,6 +20,9 @@ public class HTLib implements ModInitializer {
     public static final String VERSION = "0.0.1";
 
     public static final Logger LOG = LogManager.getLogger();
+
+    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(ID, "extra"),
+            () -> new ItemStack(Blocks.POTTED_SPRUCE_SAPLING));
 
     private static int modCounter = 0;
     private static final HashSet<String> htMods = new HashSet<>();
@@ -43,9 +51,22 @@ public class HTLib implements ModInitializer {
             LOG.info("HTLib found HTLib mod class " + c.getName());
 
             HTMod mod = c.getAnnotation(HTMod.class);
-            LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", and version " + mod.version() + ".");
+            LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", and version " + mod.version() +
+                    ".");
         }
 
         LOG.info("Done initializing HTLib.");
+    }
+
+    private void registerItemGroups() {
+
+    }
+
+    private void registerItems() {
+
+    }
+
+    private void registerBlocks() {
+
     }
 }

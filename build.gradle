@@ -25,6 +25,7 @@ dependencies {
 
 	// Annotations
 	fatJar 'org.atteo.classindex:classindex:3.4'
+	implementation 'org.atteo.classindex:classindex:3.4'
 	annotationProcessor 'org.atteo.classindex:classindex:3.4'
 }
 
