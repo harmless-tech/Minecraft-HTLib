@@ -14,25 +14,19 @@ public class HTItem extends Item {
     public final String itemId;
 
     public HTItem(@NotNull String itemId) {
-        super(new FabricItemSettings().group(HTLib.ITEM_GROUP));
-
-        this.itemId = itemId;
+        this(itemId, HTLib.ITEM_GROUP);
     }
 
     public HTItem(@NotNull String itemId, @NotNull ItemGroup itemGroup) {
-        super(new FabricItemSettings().group(itemGroup));
+        this(itemId, new FabricItemSettings().group(itemGroup));
+    }
 
-        this.itemId = itemId;
+    public HTItem(@NotNull String itemId, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
+        this(itemId, settings.group(itemGroup));
     }
 
     public HTItem(@NotNull String itemId, @NotNull Settings settings) {
         super(settings);
-
-        this.itemId = itemId;
-    }
-
-    public HTItem(@NotNull String itemId, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
-        super(settings.group(itemGroup));
 
         this.itemId = itemId;
     }

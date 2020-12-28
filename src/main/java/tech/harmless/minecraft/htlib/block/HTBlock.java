@@ -11,86 +11,53 @@ import org.jetbrains.annotations.NotNull;
 import tech.harmless.minecraft.htlib.HTLib;
 
 @IndexSubclasses
+//TODO Add more functionality.
 public class HTBlock extends Block {
 
     public final String blockId;
     public final Item.Settings itemSettings;
 
     public HTBlock(@NotNull String blockId) {
-        super(FabricBlockSettings.of(Material.SOIL));
-
-        this.blockId = blockId;
-        this.itemSettings = defaultItemSettings();
+        this(blockId, Material.SOIL);
     }
 
     public HTBlock(@NotNull String blockId, @NotNull Material material) {
-        super(FabricBlockSettings.of(material));
-
-        this.blockId = blockId;
-        this.itemSettings = defaultItemSettings();
-    }
-
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup) {
-        super(FabricBlockSettings.of(Material.SOIL));
-
-        this.blockId = blockId;
-        this.itemSettings = defaultItemSettings();
-    }
-
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Material material) {
-        super(FabricBlockSettings.of(material));
-
-        this.blockId = blockId;
-        this.itemSettings = defaultItemSettings();
+        this(blockId, FabricBlockSettings.of(material));
     }
 
     public HTBlock(@NotNull String blockId, @NotNull Settings settings) {
-        super(settings);
+        this(blockId, settings, defaultItemSettings());
+    }
 
-        this.blockId = blockId;
-        this.itemSettings = defaultItemSettings();
+    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup) {
+        this(blockId, itemGroup, Material.SOIL);
+    }
+
+    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Material material) {
+        this(blockId, itemGroup, FabricBlockSettings.of(material));
     }
 
     public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
-        super(settings);
-
-        this.blockId = blockId;
-        this.itemSettings = defaultItemSettings();
-    }
-
-    private Item.Settings defaultItemSettings() {
-        return new FabricItemSettings().group(HTLib.ITEM_GROUP);
+        this(blockId, itemGroup, settings, defaultItemSettings());
     }
 
     public HTBlock(@NotNull String blockId, @NotNull Item.Settings itemSettings) {
-        super(FabricBlockSettings.of(Material.SOIL));
-
-        this.blockId = blockId;
-        this.itemSettings = itemSettings;
+        this(blockId, Material.SOIL, itemSettings);
     }
 
     public HTBlock(@NotNull String blockId, @NotNull Material material, @NotNull Item.Settings itemSettings) {
-        super(FabricBlockSettings.of(material));
-
-        this.blockId = blockId;
-        this.itemSettings = itemSettings;
+        this(blockId, FabricBlockSettings.of(material), itemSettings);
     }
 
     public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Item.Settings itemSettings) {
-        super(FabricBlockSettings.of(Material.SOIL));
-
-        this.blockId = blockId;
-        this.itemSettings = itemSettings;
+        this(blockId, itemGroup, FabricBlockSettings.of(Material.SOIL), itemSettings);
     }
 
     public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Material material,
                    @NotNull Item.Settings itemSettings) {
-        super(FabricBlockSettings.of(material));
-
-        this.blockId = blockId;
-        this.itemSettings = itemSettings;
+        this(blockId, itemGroup, FabricBlockSettings.of(material), itemSettings);
     }
-
+    
     public HTBlock(@NotNull String blockId, @NotNull Settings settings, @NotNull Item.Settings itemSettings) {
         super(settings);
 
@@ -100,9 +67,10 @@ public class HTBlock extends Block {
 
     public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Settings settings,
                    @NotNull Item.Settings itemSettings) {
-        super(settings);
+        this(blockId, settings, itemSettings.group(itemGroup));
+    }
 
-        this.blockId = blockId;
-        this.itemSettings = itemSettings;
+    private static Item.Settings defaultItemSettings() {
+        return new FabricItemSettings().group(HTLib.ITEM_GROUP);
     }
 }
