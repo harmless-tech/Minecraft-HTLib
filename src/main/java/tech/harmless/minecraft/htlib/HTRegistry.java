@@ -63,4 +63,6 @@ public class HTRegistry {
         else
             HTLib.LOG.error(registerName + " is a duplicate block, and it will be ignored by HTLib.");
     }
+
+    //TODO Commands and BlockEntities.
 }

@@ -1,4 +1,4 @@
-package tech.harmless.minecraft.htlib.libimpl;
+package tech.harmless.minecraft.htlib.impl;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;

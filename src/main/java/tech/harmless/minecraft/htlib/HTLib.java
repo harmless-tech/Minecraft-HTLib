@@ -62,7 +62,6 @@ public class HTLib implements ModInitializer {
                 if(mod.rootPackage().isEmpty()) {
                     modPackage = c.getPackage().getName();
                 }
-                LOG.warn(mod.name() + " uses package " + modPackage + "."); //TODO Remove!
 
                 final String finalModPackage = modPackage;
                 final Logger modLog = LogManager.getLogger(mod.name());
