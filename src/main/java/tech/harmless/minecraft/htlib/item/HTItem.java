@@ -9,6 +9,7 @@ import tech.harmless.minecraft.htlib.HTLib;
 
 @IndexSubclasses
 //TODO Add more functionality.
+//TODO Add a manuel way to trigger the registering. For the times where you just want a simple item.
 public class HTItem extends Item {
 
     public final String id;

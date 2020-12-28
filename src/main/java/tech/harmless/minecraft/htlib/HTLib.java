@@ -2,6 +2,7 @@ package tech.harmless.minecraft.htlib;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
@@ -15,6 +16,7 @@ import org.atteo.classindex.ClassIndex;
 import tech.harmless.minecraft.htlib.annotations.HTMod;
 import tech.harmless.minecraft.htlib.annotations.NoRegister;
 import tech.harmless.minecraft.htlib.block.HTBlock;
+import tech.harmless.minecraft.htlib.command.HTCommand;
 import tech.harmless.minecraft.htlib.item.HTItem;
 
 import java.lang.reflect.InvocationTargetException;
@@ -41,12 +43,31 @@ public class HTLib implements ModInitializer {
     private static final HashSet<String> htMods = new HashSet<>();
     private static final HashMap<String, HTItem> htItems = new HashMap<>(); //TODO Way to make items inside final?
     private static final HashMap<String, HTBlock> htBlocks = new HashMap<>(); //TODO Way to make items inside final?
+    private static final HashSet<String> htCommands = new HashSet<>(); //TODO Way to make items inside final?
     //TODO Block Entities.
 
     @Override
     public void onInitialize() {
         LOG.info("Initializing " + NAME + " " + VERSION + "...");
 
+        // HTLib Stuff
+        //TODO Register HTLib cmds and stuff here?
+
+        //TODO Dev (REMOVE)
+        /*CommandRegistrationCallback.EVENT.register(
+                (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("htlib").executes(context -> {
+                    LOG.info(context.getSource().getPlayer().getName());
+                    context.getSource().getPlayer().sendMessage(Text.of("Test"), true);
+                    context.getSource().getPlayer().sendMessage(Text.of("Test"), false);
+                    //context.getSource().getPlayer().sendMessage(Text.of("Test"), MessageType.CHAT, UUID.randomUUID());
+
+                    context.getSource().sendFeedback(new LiteralText("Text Text"), false);
+                    return 0;
+                }))
+        );*/
+        //
+
+        // Other Mods
         Iterable<Class<?>> modClasses = ClassIndex.getAnnotated(HTMod.class);
         Iterator<Class<?>> mods = modClasses.iterator();
 
@@ -86,7 +107,12 @@ public class HTLib implements ModInitializer {
                 registerItems(modLog, filter, mod.id());
 
                 // Blocks
-                //TODO Get Blocks
+                registerBlocks(modLog, filter, mod.id());
+                //TODO Get BlockEntities
+
+                // Commands
+                registerCommands(modLog, filter, mod.id());
+                //TODO More Command Stuff
             }
             else
                 LOG.error(mod.id() + " is a duplicate HTMod! It will be ignored by HTLib.");
@@ -152,5 +178,46 @@ public class HTLib implements ModInitializer {
                 }
             }
         }
+    }
+
+    //TODO BlockEntities
+
+    private void registerCommands(Logger log, ClassFilter.FilterBuilder filter, String modId) {
+        Iterable<Class<? extends HTCommand>> cmdClasses = filter.from(ClassIndex.getSubclasses(HTCommand.class));
+
+        for(Class<? extends HTCommand> cmdClass : cmdClasses) {
+            if(!cmdClass.isAnnotationPresent(NoRegister.class) && !cmdClass.isInterface() && !cmdClass.isEnum()) {
+                try {
+                    HTCommand cmd = cmdClass.getDeclaredConstructor().newInstance();
+
+                    String registerName = modId + ":" + cmd.cmdName();
+                    log.info("Registering cmd: " + cmd.cmdName());
+
+                    if(!htCommands.contains(registerName)) {
+                        htCommands.add(registerName);
+                        //TODO
+
+                        CommandRegistrationCallback.EVENT.register(cmd::cmd);
+                    }
+                    else
+                        log.error(registerName + " is a duplicate command, and it will be ignored by HTLib.");
+                }
+                catch(InstantiationException | IllegalAccessException | InvocationTargetException |
+                        NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    //TODO These methods could get messy, so maybe another class?
+    //TODO Add item.
+    public static void addItem() {
+
+    }
+
+    //TODO Add block.
+    public static void addBlock() {
+
     }
 }
