@@ -1,6 +1,6 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
-	id 'maven-publish'
+	id "fabric-loom" version "0.5-SNAPSHOT"
+	id "maven-publish"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -24,9 +24,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Annotations
-	fatJar 'org.atteo.classindex:classindex:3.4'
-	implementation 'org.atteo.classindex:classindex:3.4'
-	annotationProcessor 'org.atteo.classindex:classindex:3.4'
+	fatJar "org.atteo.classindex:classindex:3.4"
+	implementation "org.atteo.classindex:classindex:3.4"
+	annotationProcessor "org.atteo.classindex:classindex:3.4"
 }
 
 processResources {
@@ -59,7 +59,7 @@ jar {
 	}
 }
 
-// configure the maven publication
+/*// configure the maven publication
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -78,4 +78,4 @@ publishing {
 	repositories {
 		// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	}
-}
+}*/
