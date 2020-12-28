@@ -12,6 +12,7 @@ import tech.harmless.minecraft.htlib.HTLib;
 
 @IndexSubclasses
 //TODO Add more functionality.
+//TODO Put BlockEntityProvider here?
 public class HTBlock extends Block {
 
     public final String id;

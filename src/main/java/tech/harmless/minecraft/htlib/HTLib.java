@@ -22,6 +22,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+
+/**
+ * HTLib is a library mod for fabric that seeks to automate and improve the process of making fabric mods.
+ */
 //TODO Javadocs.
 public class HTLib implements ModInitializer {
 
@@ -32,22 +36,12 @@ public class HTLib implements ModInitializer {
     public static final Logger LOG = LogManager.getLogger();
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(ID, "overflow"),
-            () -> new ItemStack(Blocks.SPRUCE_SAPLING)); //TODO Items. ?
+            () -> new ItemStack(Blocks.SPRUCE_SAPLING)); //TODO Better picture?
 
     private static final HashSet<String> htMods = new HashSet<>();
     private static final HashMap<String, HTItem> htItems = new HashMap<>(); //TODO Way to make items inside final?
     private static final HashMap<String, HTBlock> htBlocks = new HashMap<>(); //TODO Way to make items inside final?
-    //TODO Blocks.
-
-    //TODO Use annotation HTMod.
-    /*@NotNull
-    public static HTLibHandle init(@NotNull String id, @NotNull String version) {
-        if(htMods.contains(id))
-            throw new RuntimeException("HTLib already registered this mod id: " + id + ".");
-
-        htMods.add(id);
-        return new HTLibHandle(modCounter++, id, version);
-    }*/
+    //TODO Block Entities.
 
     @Override
     public void onInitialize() {
@@ -76,8 +70,8 @@ public class HTLib implements ModInitializer {
                 LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", version "
                         + mod.version() + ".");
 
-                String modPackage = mod.topPackage();
-                if(mod.topPackage().isEmpty()) {
+                String modPackage = mod.rootPackage();
+                if(mod.rootPackage().isEmpty()) {
                     modPackage = c.getPackage().getName();
                 }
                 LOG.warn(mod.name() + " uses package " + modPackage + "."); //TODO Remove!
