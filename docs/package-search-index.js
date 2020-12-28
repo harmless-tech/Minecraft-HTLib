@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"tech.harmless.minecraft.htlib"},{"l":"tech.harmless.minecraft.htlib.lib"},{"l":"tech.harmless.minecraft.htlib.lib.annotations"},{"l":"tech.harmless.minecraft.htlib.lib.block"},{"l":"tech.harmless.minecraft.htlib.lib.item"},{"l":"tech.harmless.minecraft.mod"}];updateSearchResults();
