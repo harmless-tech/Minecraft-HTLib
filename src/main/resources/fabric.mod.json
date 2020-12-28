@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "HTLib",
-  "description": "A library mod.",
+  "description": "A library mod with the hope of making mods easier to develop.",
   "authors": [
     "Harmless_Tech"
   ],
