@@ -1,14 +1,11 @@
 package tech.harmless.minecraft.htlib;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.atteo.classindex.ClassIndex;
 import tech.harmless.minecraft.htlib.lib.annotations.HTMod;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 public class HTLib implements ModInitializer {

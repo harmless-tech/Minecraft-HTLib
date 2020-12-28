@@ -1,6 +1,8 @@
 plugins {
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
+
+	id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -61,6 +63,19 @@ java {
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+build {
+	finalizedBy shadowJar
+}
+
+shadowJar {
+	classifier = ""
+	relocate "org", "tech.harmless.minecraft.htlib.repack.org"
+
+	dependencies {
+		include(dependency('org.atteo.classindex:classindex:3.4'))
 	}
 }
 
