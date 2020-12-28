@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+//TODO Javadocs.
 public class HTLib implements ModInitializer {
 
     public static final String NAME = "HTLib";
