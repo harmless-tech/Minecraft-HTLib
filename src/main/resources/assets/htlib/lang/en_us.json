@@ -1,3 +1,5 @@
 {
-  "itemGroup.htlib.overflow": "HTLib Overflow"
+  "itemGroup.htlib.overflow": "HTLib Overflow",
+
+  "command.htlib.htlib": "/htlib (This command does not do anything yet!)"
 }
