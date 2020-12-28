@@ -11,7 +11,7 @@ import tech.harmless.minecraft.htlib.HTLib;
 //TODO Add more functionality.
 public class HTItem extends Item {
 
-    public String itemId;
+    public final String itemId;
 
     public HTItem(@NotNull String itemId) {
         super(new FabricItemSettings().group(HTLib.ITEM_GROUP));

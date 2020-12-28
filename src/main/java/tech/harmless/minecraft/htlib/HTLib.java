@@ -80,12 +80,13 @@ public class HTLib implements ModInitializer {
                 LOG.warn(mod.name() + " uses package " + modPackage + "."); //TODO Remove!
 
                 final String finalModPackage = modPackage;
-                ClassFilter.FilterBuilder filter =
+                final Logger modLog = LogManager.getLogger(mod.name());
+                final ClassFilter.FilterBuilder filter =
                         ClassFilter.any((klass) -> klass.getPackage().getName().startsWith(finalModPackage));
 
                 // Items
                 //TODO Get ItemGroups
-                registerItems(filter, mod.id());
+                registerItems(modLog, filter, mod.id());
 
                 // Blocks
                 //TODO Get Blocks
@@ -101,7 +102,7 @@ public class HTLib implements ModInitializer {
 
     }
 
-    private void registerItems(ClassFilter.FilterBuilder filter, String modId) {
+    private void registerItems(Logger log, ClassFilter.FilterBuilder filter, String modId) {
         Iterable<Class<? extends HTItem>> itemClasses = filter.from(ClassIndex.getSubclasses(HTItem.class));
 
         for(Class<? extends HTItem> itemClass : itemClasses) {
@@ -110,14 +111,14 @@ public class HTLib implements ModInitializer {
                     HTItem item = itemClass.getDeclaredConstructor().newInstance();
 
                     String registerName = modId + ":" + item.itemId;
-                    LOG.info("Registering item: " + registerName);
+                    log.info("Registering item: " + registerName);
 
                     if(!htItems.containsKey(registerName)) {
                         htItems.put(registerName, item);
                         Registry.register(Registry.ITEM, new Identifier(modId, item.itemId), item);
                     }
                     else
-                        LOG.error(registerName + " is a duplicate item, and it will be ignored by HTLib.");
+                        log.error(registerName + " is a duplicate item, and it will be ignored by HTLib.");
                 }
                 catch(InstantiationException | IllegalAccessException | InvocationTargetException |
                         NoSuchMethodException e) {
