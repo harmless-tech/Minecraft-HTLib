@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
+import org.jetbrains.annotations.NotNull;
 import tech.harmless.minecraft.htlib.command.HTCommand;
 
 public class ImplCommandRoot implements HTCommand {
@@ -14,7 +15,7 @@ public class ImplCommandRoot implements HTCommand {
     }
 
     @Override
-    public void cmd(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
+    public void cmd(@NotNull CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
         dispatcher.register(CommandManager.literal(cmdName())
                 .executes(ctx -> {
                     ctx.getSource().sendError(new TranslatableText("command.htlib.htlib"));

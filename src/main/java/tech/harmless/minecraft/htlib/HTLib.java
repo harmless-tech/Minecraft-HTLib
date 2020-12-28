@@ -1,12 +1,8 @@
 package tech.harmless.minecraft.htlib;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
@@ -20,8 +16,6 @@ import tech.harmless.minecraft.htlib.command.HTCommand;
 import tech.harmless.minecraft.htlib.item.HTItem;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 
 
@@ -37,37 +31,10 @@ public class HTLib implements ModInitializer {
 
     public static final Logger LOG = LogManager.getLogger();
 
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(ID, "overflow"),
-            () -> new ItemStack(Blocks.SPRUCE_SAPLING)); //TODO Better picture?
-
-    private static final HashSet<String> htMods = new HashSet<>();
-    private static final HashMap<String, HTItem> htItems = new HashMap<>(); //TODO Way to make items inside final?
-    private static final HashMap<String, HTBlock> htBlocks = new HashMap<>(); //TODO Way to make items inside final?
-    private static final HashSet<String> htCommands = new HashSet<>(); //TODO Way to make items inside final?
-    //TODO Block Entities.
-
     @Override
     public void onInitialize() {
         LOG.info("Initializing " + NAME + " " + VERSION + "...");
 
-        // HTLib Stuff
-        //TODO Register HTLib cmds and stuff here?
-
-        //TODO Dev (REMOVE)
-        /*CommandRegistrationCallback.EVENT.register(
-                (dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("htlib").executes(context -> {
-                    LOG.info(context.getSource().getPlayer().getName());
-                    context.getSource().getPlayer().sendMessage(Text.of("Test"), true);
-                    context.getSource().getPlayer().sendMessage(Text.of("Test"), false);
-                    //context.getSource().getPlayer().sendMessage(Text.of("Test"), MessageType.CHAT, UUID.randomUUID());
-
-                    context.getSource().sendFeedback(new LiteralText("Text Text"), false);
-                    return 0;
-                }))
-        );*/
-        //
-
-        // Other Mods
         Iterable<Class<?>> modClasses = ClassIndex.getAnnotated(HTMod.class);
         Iterator<Class<?>> mods = modClasses.iterator();
 
@@ -86,8 +53,8 @@ public class HTLib implements ModInitializer {
         for(Class<?> c : modClasses) {
             HTMod mod = c.getAnnotation(HTMod.class);
 
-            if(!htMods.contains(mod.id())) {
-                htMods.add(mod.id());
+            if(!HTRegistry.MODS.contains(mod.id())) {
+                HTRegistry.MODS.add(mod.id());
                 LOG.info("Registered HTLib mod " + mod.name() + " with id " + mod.id() + ", version "
                         + mod.version() + ".");
 
@@ -122,7 +89,7 @@ public class HTLib implements ModInitializer {
     }
 
     private void registerItemGroups() {
-
+        //TODO ?
     }
 
     private void registerItems(Logger log, ClassFilter.FilterBuilder filter, String modId) {
@@ -136,8 +103,8 @@ public class HTLib implements ModInitializer {
                     String registerName = modId + ":" + item.id;
                     log.info("Registering item: " + registerName);
 
-                    if(!htItems.containsKey(registerName)) {
-                        htItems.put(registerName, item);
+                    if(!HTRegistry.ITEMS.containsKey(registerName)) {
+                        HTRegistry.ITEMS.put(registerName, item);
                         Registry.register(Registry.ITEM, new Identifier(modId, item.id), item);
                     }
                     else
@@ -162,8 +129,8 @@ public class HTLib implements ModInitializer {
                     String registerName = modId + ":" + block.id;
                     log.info("Registering block: " + registerName);
 
-                    if(!htBlocks.containsKey(registerName)) {
-                        htBlocks.put(registerName, block);
+                    if(!HTRegistry.BLOCKS.containsKey(registerName)) {
+                        HTRegistry.BLOCKS.put(registerName, block);
                         Identifier identifier = new Identifier(modId, block.id);
 
                         Registry.register(Registry.BLOCK, identifier, block);
@@ -193,9 +160,8 @@ public class HTLib implements ModInitializer {
                     String registerName = modId + ":" + cmd.cmdName();
                     log.info("Registering cmd: " + cmd.cmdName());
 
-                    if(!htCommands.contains(registerName)) {
-                        htCommands.add(registerName);
-                        //TODO
+                    if(!HTRegistry.COMMANDS.contains(registerName)) {
+                        HTRegistry.COMMANDS.add(registerName);
 
                         CommandRegistrationCallback.EVENT.register(cmd::cmd);
                     }
@@ -208,16 +174,5 @@ public class HTLib implements ModInitializer {
                 }
             }
         }
-    }
-
-    //TODO These methods could get messy, so maybe another class?
-    //TODO Add item.
-    public static void addItem() {
-
-    }
-
-    //TODO Add block.
-    public static void addBlock() {
-
     }
 }

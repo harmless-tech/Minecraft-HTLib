@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import org.atteo.classindex.IndexSubclasses;
 import org.jetbrains.annotations.NotNull;
-import tech.harmless.minecraft.htlib.HTLib;
+import tech.harmless.minecraft.htlib.HTRegistry;
 
 @IndexSubclasses
 //TODO Add more functionality.
@@ -72,6 +72,6 @@ public class HTBlock extends Block {
     }
 
     private static Item.Settings defaultItemSettings() {
-        return new FabricItemSettings().group(HTLib.ITEM_GROUP);
+        return new FabricItemSettings().group(HTRegistry.ITEM_GROUP);
     }
 }
