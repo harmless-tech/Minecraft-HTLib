@@ -11,23 +11,23 @@ import tech.harmless.minecraft.htlib.HTLib;
 //TODO Add more functionality.
 public class HTItem extends Item {
 
-    public final String itemId;
+    public final String id;
 
-    public HTItem(@NotNull String itemId) {
-        this(itemId, HTLib.ITEM_GROUP);
+    public HTItem(@NotNull String id) {
+        this(id, HTLib.ITEM_GROUP);
     }
 
-    public HTItem(@NotNull String itemId, @NotNull ItemGroup itemGroup) {
-        this(itemId, new FabricItemSettings().group(itemGroup));
+    public HTItem(@NotNull String id, @NotNull ItemGroup itemGroup) {
+        this(id, new FabricItemSettings().group(itemGroup));
     }
 
-    public HTItem(@NotNull String itemId, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
-        this(itemId, settings.group(itemGroup));
+    public HTItem(@NotNull String id, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
+        this(id, settings.group(itemGroup));
     }
 
-    public HTItem(@NotNull String itemId, @NotNull Settings settings) {
+    public HTItem(@NotNull String id, @NotNull Settings settings) {
         super(settings);
 
-        this.itemId = itemId;
+        this.id = id;
     }
 }

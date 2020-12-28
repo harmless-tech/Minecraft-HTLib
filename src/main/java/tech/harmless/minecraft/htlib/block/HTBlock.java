@@ -14,60 +14,60 @@ import tech.harmless.minecraft.htlib.HTLib;
 //TODO Add more functionality.
 public class HTBlock extends Block {
 
-    public final String blockId;
+    public final String id;
     public final Item.Settings itemSettings;
 
-    public HTBlock(@NotNull String blockId) {
-        this(blockId, Material.SOIL);
+    public HTBlock(@NotNull String id) {
+        this(id, Material.SOIL);
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull Material material) {
-        this(blockId, FabricBlockSettings.of(material));
+    public HTBlock(@NotNull String id, @NotNull Material material) {
+        this(id, FabricBlockSettings.of(material));
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull Settings settings) {
-        this(blockId, settings, defaultItemSettings());
+    public HTBlock(@NotNull String id, @NotNull Settings settings) {
+        this(id, settings, defaultItemSettings());
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup) {
-        this(blockId, itemGroup, Material.SOIL);
+    public HTBlock(@NotNull String id, @NotNull ItemGroup itemGroup) {
+        this(id, itemGroup, Material.SOIL);
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Material material) {
-        this(blockId, itemGroup, FabricBlockSettings.of(material));
+    public HTBlock(@NotNull String id, @NotNull ItemGroup itemGroup, @NotNull Material material) {
+        this(id, itemGroup, FabricBlockSettings.of(material));
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
-        this(blockId, itemGroup, settings, defaultItemSettings());
+    public HTBlock(@NotNull String id, @NotNull ItemGroup itemGroup, @NotNull Settings settings) {
+        this(id, itemGroup, settings, defaultItemSettings());
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull Item.Settings itemSettings) {
-        this(blockId, Material.SOIL, itemSettings);
+    public HTBlock(@NotNull String id, @NotNull Item.Settings itemSettings) {
+        this(id, Material.SOIL, itemSettings);
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull Material material, @NotNull Item.Settings itemSettings) {
-        this(blockId, FabricBlockSettings.of(material), itemSettings);
+    public HTBlock(@NotNull String id, @NotNull Material material, @NotNull Item.Settings itemSettings) {
+        this(id, FabricBlockSettings.of(material), itemSettings);
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Item.Settings itemSettings) {
-        this(blockId, itemGroup, FabricBlockSettings.of(Material.SOIL), itemSettings);
+    public HTBlock(@NotNull String id, @NotNull ItemGroup itemGroup, @NotNull Item.Settings itemSettings) {
+        this(id, itemGroup, FabricBlockSettings.of(Material.SOIL), itemSettings);
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Material material,
+    public HTBlock(@NotNull String id, @NotNull ItemGroup itemGroup, @NotNull Material material,
                    @NotNull Item.Settings itemSettings) {
-        this(blockId, itemGroup, FabricBlockSettings.of(material), itemSettings);
+        this(id, itemGroup, FabricBlockSettings.of(material), itemSettings);
     }
-    
-    public HTBlock(@NotNull String blockId, @NotNull Settings settings, @NotNull Item.Settings itemSettings) {
+
+    public HTBlock(@NotNull String id, @NotNull Settings settings, @NotNull Item.Settings itemSettings) {
         super(settings);
 
-        this.blockId = blockId;
+        this.id = id;
         this.itemSettings = itemSettings;
     }
 
-    public HTBlock(@NotNull String blockId, @NotNull ItemGroup itemGroup, @NotNull Settings settings,
+    public HTBlock(@NotNull String id, @NotNull ItemGroup itemGroup, @NotNull Settings settings,
                    @NotNull Item.Settings itemSettings) {
-        this(blockId, settings, itemSettings.group(itemGroup));
+        this(id, settings, itemSettings.group(itemGroup));
     }
 
     private static Item.Settings defaultItemSettings() {

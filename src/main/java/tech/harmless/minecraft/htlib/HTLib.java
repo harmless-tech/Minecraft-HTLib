@@ -3,6 +3,7 @@ package tech.harmless.minecraft.htlib;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -13,6 +14,7 @@ import org.atteo.classindex.ClassFilter;
 import org.atteo.classindex.ClassIndex;
 import tech.harmless.minecraft.htlib.annotations.HTMod;
 import tech.harmless.minecraft.htlib.annotations.NoRegister;
+import tech.harmless.minecraft.htlib.block.HTBlock;
 import tech.harmless.minecraft.htlib.item.HTItem;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,6 +36,7 @@ public class HTLib implements ModInitializer {
 
     private static final HashSet<String> htMods = new HashSet<>();
     private static final HashMap<String, HTItem> htItems = new HashMap<>(); //TODO Way to make items inside final?
+    private static final HashMap<String, HTBlock> htBlocks = new HashMap<>(); //TODO Way to make items inside final?
     //TODO Blocks.
 
     //TODO Use annotation HTMod.
@@ -110,12 +113,12 @@ public class HTLib implements ModInitializer {
                 try {
                     HTItem item = itemClass.getDeclaredConstructor().newInstance();
 
-                    String registerName = modId + ":" + item.itemId;
+                    String registerName = modId + ":" + item.id;
                     log.info("Registering item: " + registerName);
 
                     if(!htItems.containsKey(registerName)) {
                         htItems.put(registerName, item);
-                        Registry.register(Registry.ITEM, new Identifier(modId, item.itemId), item);
+                        Registry.register(Registry.ITEM, new Identifier(modId, item.id), item);
                     }
                     else
                         log.error(registerName + " is a duplicate item, and it will be ignored by HTLib.");
@@ -128,7 +131,32 @@ public class HTLib implements ModInitializer {
         }
     }
 
-    private void registerBlocks() {
+    private void registerBlocks(Logger log, ClassFilter.FilterBuilder filter, String modId) {
+        Iterable<Class<? extends HTBlock>> blockClasses = filter.from(ClassIndex.getSubclasses(HTBlock.class));
 
+        for(Class<? extends HTBlock> blockClass : blockClasses) {
+            if(!blockClass.isAnnotationPresent(NoRegister.class) && !blockClass.isInterface() && !blockClass.isEnum()) {
+                try {
+                    HTBlock block = blockClass.getDeclaredConstructor().newInstance();
+
+                    String registerName = modId + ":" + block.id;
+                    log.info("Registering block: " + registerName);
+
+                    if(!htBlocks.containsKey(registerName)) {
+                        htBlocks.put(registerName, block);
+                        Identifier identifier = new Identifier(modId, block.id);
+
+                        Registry.register(Registry.BLOCK, identifier, block);
+                        Registry.register(Registry.ITEM, identifier, new BlockItem(block, block.itemSettings));
+                    }
+                    else
+                        log.error(registerName + " is a duplicate block, and it will be ignored by HTLib.");
+                }
+                catch(InstantiationException | IllegalAccessException | InvocationTargetException |
+                        NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
