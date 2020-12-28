@@ -72,7 +72,7 @@ build {
 
 shadowJar {
 	classifier = ""
-	relocate "org", "tech.harmless.minecraft.htlib.repack.org"
+	//relocate "org", "tech.harmless.minecraft.htlib.repack.org"
 
 	dependencies {
 		include(dependency('org.atteo.classindex:classindex:3.4'))
