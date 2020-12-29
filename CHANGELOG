@@ -4,3 +4,6 @@
 0.0.2:
  - Added a better icon.
  - Added an issues page.
+
+0.0.3:
+ - Fixed version being the wrong version.

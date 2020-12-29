@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * {@code HTBlockEntity}, etc. If this annotation is used then the thing will have to be registered with Fabric
  * manually.
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) //TODO Other stuff should be allowed? Even needed?
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NoRegister {
 }
