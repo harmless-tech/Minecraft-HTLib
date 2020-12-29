@@ -23,6 +23,7 @@ import java.util.Iterator;
  * HTLib is a library mod for fabric that seeks to automate and improve the process of making fabric mods.
  */
 //TODO Javadocs.
+//TODO Config support.
 public class HTLib implements ModInitializer {
 
     public static final String NAME = "HTLib";

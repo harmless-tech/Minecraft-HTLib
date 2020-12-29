@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "",
-    "sources": "https://github.com/harmless-tech/Minecraft-HTLib"
+    "sources": "https://github.com/harmless-tech/Minecraft-HTLib",
+    "issues": "https://github.com/harmless-tech/Minecraft-HTLib/issues"
   },
 
   "license": "MIT License",
