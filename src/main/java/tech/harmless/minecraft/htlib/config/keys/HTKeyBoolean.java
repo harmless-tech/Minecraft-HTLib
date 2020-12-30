@@ -1,4 +1,4 @@
-package tech.harmless.minecraft.htlib.config;
+package tech.harmless.minecraft.htlib.config.keys;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -7,12 +7,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HTConfig {
-    @NotNull String configName();
+public @interface HTKeyBoolean {
+    @NotNull String key();
 
-    boolean inFolder() default true;
+    boolean defaultValue();
 
-    @NotNull String rootComment() default "";
+    @NotNull String comment() default "";
 }
