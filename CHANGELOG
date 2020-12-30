@@ -9,5 +9,5 @@
  - Fixed version being the wrong version.
 
 0.1.0:
- - Added config support.
- - Added data types.
+ - Added config gen/fetch support.
+ - Added data types. (Tuple, FinalTuple, Triplet, FinalTriplet)

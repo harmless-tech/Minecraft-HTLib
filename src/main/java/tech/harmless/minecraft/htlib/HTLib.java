@@ -15,8 +15,6 @@ import tech.harmless.minecraft.htlib.block.HTBlock;
 import tech.harmless.minecraft.htlib.command.HTCommand;
 import tech.harmless.minecraft.htlib.item.HTItem;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
