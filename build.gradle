@@ -1,3 +1,5 @@
+import java.awt.Desktop
+
 plugins {
 	id "fabric-loom" version "0.5-SNAPSHOT"
 	id "maven-publish"
@@ -66,6 +68,16 @@ jar {
 		configurations.fatJar.collect { it.isDirectory() ? it : zipTree(it) }
 	}
 }
+
+task openDoc {
+	dependsOn javadoc
+
+	doLast {
+		File file = new File("$buildDir/docs/javadoc/index.html")
+		Desktop.desktop.browse(file.toURI())
+	}
+}
+task doc { dependsOn openDoc }
 
 // configure the maven publication
 publishing {
