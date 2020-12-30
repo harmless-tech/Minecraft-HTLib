@@ -14,7 +14,11 @@ import tech.harmless.minecraft.htlib.item.HTItem;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class HTRegistry {
+//TODO Make protected?
+//TODO Nothing in this class should be static!
+public final class HTRegistry {
+
+    // protected constructor
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(HTLib.ID, "overflow"),
             () -> new ItemStack(Blocks.SPRUCE_SAPLING)); //TODO Better picture?

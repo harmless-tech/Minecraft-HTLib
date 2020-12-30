@@ -15,6 +15,8 @@ import tech.harmless.minecraft.htlib.block.HTBlock;
 import tech.harmless.minecraft.htlib.command.HTCommand;
 import tech.harmless.minecraft.htlib.item.HTItem;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
@@ -24,11 +26,12 @@ import java.util.Iterator;
  */
 //TODO Javadocs.
 //TODO Config support.
+//TODO Add support for @RegisterWithArgs(Object[][]). Check for default constructor if this annotation is missing.
 public class HTLib implements ModInitializer {
 
     public static final String NAME = "HTLib";
     public static final String ID = "htlib";
-    public static final String VERSION = "0.0.3";
+    public static final String VERSION = "0.1.0";
 
     public static final Logger LOG = LogManager.getLogger();
 
@@ -88,6 +91,8 @@ public class HTLib implements ModInitializer {
         LOG.info("Done initializing " + NAME + ".");
     }
 
+    //TODO Refactor and add more safety to register methods. Maybe move to HTRegistry.
+
     private void registerItemGroups() {
         //TODO ?
     }
@@ -96,9 +101,10 @@ public class HTLib implements ModInitializer {
         Iterable<Class<? extends HTItem>> itemClasses = filter.from(ClassIndex.getSubclasses(HTItem.class));
 
         for(Class<? extends HTItem> itemClass : itemClasses) {
-            if(!itemClass.isAnnotationPresent(NoRegister.class) && !itemClass.isInterface() && !itemClass.isEnum()) {
+            if(!itemClass.isAnnotationPresent(NoRegister.class) && !itemClass.isInterface() && !itemClass.isEnum() &&
+                    !itemClass.isAnnotation()) {
                 try {
-                    HTItem item = itemClass.getDeclaredConstructor().newInstance();
+                    HTItem item = itemClass.getDeclaredConstructor().newInstance(); //TODO getConstructor()
 
                     String registerName = modId + ":" + item.id;
                     log.info("Registering item: " + registerName);
@@ -122,7 +128,8 @@ public class HTLib implements ModInitializer {
         Iterable<Class<? extends HTBlock>> blockClasses = filter.from(ClassIndex.getSubclasses(HTBlock.class));
 
         for(Class<? extends HTBlock> blockClass : blockClasses) {
-            if(!blockClass.isAnnotationPresent(NoRegister.class) && !blockClass.isInterface() && !blockClass.isEnum()) {
+            if(!blockClass.isAnnotationPresent(NoRegister.class) && !blockClass.isInterface() && !blockClass.isEnum() &&
+                    !blockClass.isAnnotation()) {
                 try {
                     HTBlock block = blockClass.getDeclaredConstructor().newInstance();
 
