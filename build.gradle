@@ -104,13 +104,11 @@ publishing {
 
 	repositories {
 		maven {
-			url "https://git.harmless.tech/api/v4/projects/4/packages/maven"
-			credentials(HttpHeaderCredentials) {
-				name = "Private-Token"
-				value = System.getenv("DEPLOY_KEY")
-			}
-			authentication {
-				header(HttpHeaderAuthentication)
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/harmless-tech/minecraft-htlib")
+			credentials {
+				username = System.getenv("USERNAME")
+				password = System.getenv("TOKEN")
 			}
 		}
 	}
