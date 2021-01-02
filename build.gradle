@@ -113,12 +113,12 @@ publishing {
 }
 
 bintray {
-	user = "harmlesstech"
-	key = ""
+	user = System.getenv("BINTRAY_USER")
+	key = System.getenv("BINTRAY_API_KEY")
 	publications = ["mavenJava"]
 	pkg {
 		repo = "m2"
-		userOrg = "harmlesstech"
+		userOrg = System.getenv("BINTRAY_USER")
 		name = project.archivesBaseName
 		licenses = ["MIT"]
 		vcsUrl = "https://github.com/harmless-tech/minecraft-htlib"
