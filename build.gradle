@@ -6,6 +6,7 @@ plugins {
 
 	id "idea"
 	id "de.fuerstenau.buildconfig" version "1.1.8"
+	id "com.jfrog.bintray" version "1.8.5"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -86,6 +87,11 @@ task openDoc {
 }
 task doc { dependsOn openDoc }
 
+task javadocJar(type: Jar) {
+	from javadoc
+	archiveClassifier = "javadoc"
+}
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -99,17 +105,27 @@ publishing {
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
 			}
+			artifact(javadocJar) {
+				builtBy javadocJar
+			}
 		}
 	}
+}
 
-	repositories {
-		maven {
-			name = "GitHubPackages"
-			url = uri("https://maven.pkg.github.com/harmless-tech/minecraft-htlib")
-			credentials {
-				username = System.getenv("GITHUB_ACTOR")
-				password = System.getenv("GITHUB_TOKEN")
-			}
+bintray {
+	user = "harmlesstech"
+	key = ""
+	publications = ["mavenJava"]
+	pkg {
+		repo = "m2"
+		userOrg = "harmlesstech"
+		name = project.archivesBaseName
+		licenses = ["MIT"]
+		vcsUrl = "https://github.com/harmless-tech/minecraft-htlib"
+		version {
+			name = project.version
+			released = new Date()
+			vcsTag = "v" + project.version
 		}
 	}
 }
