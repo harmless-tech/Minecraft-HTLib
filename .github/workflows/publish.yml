@@ -5,6 +5,7 @@ on:
       - v*
 
 jobs:
+  environment: Publish
   build:
     strategy:
       matrix:
