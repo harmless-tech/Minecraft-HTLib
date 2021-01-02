@@ -3,6 +3,9 @@ import java.awt.Desktop
 plugins {
 	id "fabric-loom" version "0.5-SNAPSHOT"
 	id "maven-publish"
+
+	id "idea"
+	id "de.fuerstenau.buildconfig" version "1.1.8"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -34,6 +37,15 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.16'
 }
 
+buildConfig {
+	appName = project.name
+	version = project.version
+
+	clsName = "BuildConfig"
+	packageName = project.group
+	charset = "UTF-8"
+}
+
 processResources {
 	inputs.property "version", project.version
 
@@ -62,10 +74,6 @@ jar {
 	from {
 		configurations.fatJar.collect { it.isDirectory() ? it : zipTree(it) }
 	}
-
-	manifest {
-		attributes "Implementation-Version": version
-	}
 }
 
 task openDoc {
@@ -78,23 +86,33 @@ task openDoc {
 }
 task doc { dependsOn openDoc }
 
-// configure the maven publication
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
+			groupId = project.group
+			version = project.version
+
 			artifact(remapJar) {
 				builtBy remapJar
 			}
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
 			}
+
+			from components.java
 		}
 	}
 
-	// Select the repositories you want to publish to
-	// To publish to maven local, no extra repositories are necessary. Just use the task `publishToMavenLocal`.
 	repositories {
-		// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+		maven {
+			url "https://git.harmless.tech/api/v4/projects/minecraft-htlib/packages/maven"
+			credentials(HttpHeaderCredentials) {
+				name = "Private-Token"
+				value = System.getenv("DEPLOY_KEY")
+			}
+			authentication {
+				header(HttpHeaderAuthentication)
+			}
+		}
 	}
 }
