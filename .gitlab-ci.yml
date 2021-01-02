@@ -1,8 +1,5 @@
 image: adoptopenjdk:15-jdk-hotspot
 
-tags:
-  - java
-
 stages:
   - build
   - test
@@ -21,6 +18,8 @@ before_script:
 
 build:
   stage: build
+  tags:
+    - java
   script:
     - ./gradlew build
   artifacts:
@@ -32,11 +31,15 @@ build:
 
 test:
   stage: test
+  tags:
+    - java
   script:
     - ./gradlew check
 
 deploy:
   stage: deploy
+  tags:
+    - java
   script:
     - ./gradlew publish
   rules:
