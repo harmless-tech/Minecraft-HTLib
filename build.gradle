@@ -90,7 +90,6 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			groupId = project.group
-			archivesBaseName = project.archivesBaseName
 			version = project.version
 
 			artifact(remapJar) {
