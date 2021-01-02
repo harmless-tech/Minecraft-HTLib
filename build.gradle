@@ -107,8 +107,8 @@ publishing {
 			name = "GitHubPackages"
 			url = uri("https://maven.pkg.github.com/harmless-tech/minecraft-htlib")
 			credentials {
-				username = System.getenv("USERNAME")
-				password = System.getenv("TOKEN")
+				username = System.getenv("secrets.USERNAME")
+				password = System.getenv("secrets.TOKEN")
 			}
 		}
 	}
