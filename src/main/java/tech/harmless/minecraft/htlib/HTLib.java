@@ -29,7 +29,7 @@ public class HTLib implements ModInitializer {
 
     public static final String NAME = "HTLib";
     public static final String ID = "htlib";
-    public static final String VERSION = "0.1.0";
+    public static final String VERSION = HTLib.class.getPackage().getImplementationVersion();
 
     public static final Logger LOG = LogManager.getLogger();
 

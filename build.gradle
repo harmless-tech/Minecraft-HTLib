@@ -55,17 +55,16 @@ java {
 	withSourcesJar()
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	archiveClassifier = "javadoc"
-	from javadoc.destinationDir
-}
-
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
 	from {
 		configurations.fatJar.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+
+	manifest {
+		attributes "Implementation-Version": version
 	}
 }
 
@@ -89,9 +88,6 @@ publishing {
 			}
 			artifact(sourcesJar) {
 				builtBy remapSourcesJar
-			}
-			artifact(javadocJar) {
-				builtBy javadocJar
 			}
 		}
 	}
