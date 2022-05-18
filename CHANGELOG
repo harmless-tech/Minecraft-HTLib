@@ -11,3 +11,6 @@
 0.1.0:
  - Added config gen/fetch support.
  - Added data types. (Tuple, FinalTuple, Triplet, FinalTriplet)
+
+0.2.0
+ - Updated for Minecraft 1.18.x

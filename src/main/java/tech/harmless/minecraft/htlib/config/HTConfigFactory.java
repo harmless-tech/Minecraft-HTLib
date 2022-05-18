@@ -51,7 +51,7 @@ public final class HTConfigFactory {
                 reader.close();
 
                 // Parse input.
-                JsonElement jsonElement = new JsonParser().parse(fileText);
+                JsonElement jsonElement = JsonParser.parseString(fileText);
                 JsonObject root = jsonElement.getAsJsonObject();
 
                 // Root node.
@@ -104,11 +104,11 @@ public final class HTConfigFactory {
             HTKeyBoolean val = field.getAnnotation(HTKeyBoolean.class);
             FinalTuple<JsonObject, String> top = getOrCreateTop(root, val.key());
 
-            if(!val.comment().isEmpty() && !top.getX().has("Comment " + top.getY()))
-                top.getX().addProperty("Comment " + top.getY(), val.comment());
+            if(!val.comment().isEmpty() && !top.x().has("Comment " + top.y()))
+                top.x().addProperty("Comment " + top.y(), val.comment());
 
-            if(!top.getX().has(top.getY()))
-                top.getX().addProperty(top.getY(), val.defaultValue());
+            if(!top.x().has(top.y()))
+                top.x().addProperty(top.y(), val.defaultValue());
             else {
                 if(field.getType() != boolean.class)
                     throw new RuntimeException(); //TODO Message.
@@ -120,11 +120,11 @@ public final class HTConfigFactory {
             HTKeyLong val = field.getAnnotation(HTKeyLong.class);
             FinalTuple<JsonObject, String> top = getOrCreateTop(root, val.key());
 
-            if(!val.comment().isEmpty() && !top.getX().has("Comment " + top.getY()))
-                top.getX().addProperty("Comment " + top.getY(), val.comment());
+            if(!val.comment().isEmpty() && !top.x().has("Comment " + top.y()))
+                top.x().addProperty("Comment " + top.y(), val.comment());
 
-            if(!top.getX().has(top.getY()))
-                top.getX().addProperty(top.getY(), val.defaultValue());
+            if(!top.x().has(top.y()))
+                top.x().addProperty(top.y(), val.defaultValue());
             else {
                 if(field.getType() != long.class)
                     throw new RuntimeException(); //TODO Message.
@@ -136,11 +136,11 @@ public final class HTConfigFactory {
             HTKeyString val = field.getAnnotation(HTKeyString.class);
             FinalTuple<JsonObject, String> top = getOrCreateTop(root, val.key());
 
-            if(!val.comment().isEmpty() && !top.getX().has("Comment " + top.getY()))
-                top.getX().addProperty("Comment " + top.getY(), val.comment());
+            if(!val.comment().isEmpty() && !top.x().has("Comment " + top.y()))
+                top.x().addProperty("Comment " + top.y(), val.comment());
 
-            if(!top.getX().has(top.getY()))
-                top.getX().addProperty(top.getY(), val.defaultValue());
+            if(!top.x().has(top.y()))
+                top.x().addProperty(top.y(), val.defaultValue());
             else {
                 if(field.getType() != String.class)
                     throw new RuntimeException(); //TODO Message.

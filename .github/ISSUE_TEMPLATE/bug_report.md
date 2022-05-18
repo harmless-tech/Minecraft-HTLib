@@ -27,8 +27,8 @@ If applicable, add screenshots to help explain your problem.
 Please add the relevant log(s).
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Minecraft Version: [e.g. 1.16.4]
+ - OS: [e.g. Windows]
+ - Minecraft Version: [e.g. 1.18.2]
  - Fabric Version: [e.g. 0.10.8]
 
 **Additional context**

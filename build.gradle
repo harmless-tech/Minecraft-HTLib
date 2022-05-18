@@ -1,16 +1,14 @@
 import java.awt.Desktop
 
 plugins {
-	id "fabric-loom" version "0.5-SNAPSHOT"
+	id "fabric-loom" version "0.11-SNAPSHOT"
 	id "maven-publish"
 
 	id "idea"
-	id "de.fuerstenau.buildconfig" version "1.1.8"
-	id "com.jfrog.bintray" version "1.8.5"
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -18,7 +16,6 @@ group = project.maven_group
 
 configurations {
 	fatjar
-
 	implemention.extendsFrom fatJar
 }
 
@@ -30,21 +27,12 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Annotations
-	fatJar "org.atteo.classindex:classindex:3.4"
-	implementation "org.atteo.classindex:classindex:3.4"
-	annotationProcessor "org.atteo.classindex:classindex:3.4"
+	fatJar "org.atteo.classindex:classindex:3.11"
+	implementation "org.atteo.classindex:classindex:3.11"
+	annotationProcessor "org.atteo.classindex:classindex:3.11"
 
-	compileOnly 'org.projectlombok:lombok:1.18.16'
-	annotationProcessor 'org.projectlombok:lombok:1.18.16'
-}
-
-buildConfig {
-	appName = project.name
-	version = project.version
-
-	clsName = "BuildConfig"
-	packageName = project.group
-	charset = "UTF-8"
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 processResources {
@@ -55,13 +43,10 @@ processResources {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
 
-	def targetVersion = 8
-	if (JavaVersion.current().isJava9Compatible()) {
-		 it.options.release = targetVersion
-	}
+tasks.withType(JavaCompile).configureEach {
+	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+	it.options.release = 17
 }
 
 java {
@@ -108,24 +93,6 @@ publishing {
 			artifact(javadocJar) {
 				builtBy javadocJar
 			}
-		}
-	}
-}
-
-bintray {
-	user = System.getenv("BINTRAY_USER")
-	key = System.getenv("BINTRAY_API_KEY")
-	publications = ["mavenJava"]
-	pkg {
-		repo = "m2"
-		userOrg = System.getenv("BINTRAY_USER")
-		name = project.archivesBaseName
-		licenses = ["MIT"]
-		vcsUrl = "https://github.com/harmless-tech/minecraft-htlib"
-		version {
-			name = project.version
-			released = new Date()
-			vcsTag = "v" + project.version
 		}
 	}
 }

@@ -1,5 +1,4 @@
 # HTLib
-[ ![Download](https://api.bintray.com/packages/harmlesstech/m2/htlib/images/download.svg) ](https://bintray.com/harmlesstech/m2/htlib/_latestVersion)
 
 A library that focuses on making fabric modding easier and less tedious.
 
